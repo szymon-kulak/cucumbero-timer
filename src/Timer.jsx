@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiArrowPath, HiMinus, HiPlayPause, HiPlus } from "react-icons/hi2";
+import beep from "./assets/beep.mp3";
 
 function Timer() {
 	const [breakLength, setBreakLength] = useState(5);
@@ -59,27 +60,67 @@ function Timer() {
 		}
 	};
 
+	const audio = document.getElementById("beep");
+
+	useEffect(() => {
+		let interval;
+		if (
+			currentAction === "Session in Progress" ||
+			currentAction === "Break in Progress"
+		) {
+			interval = setInterval(() => {
+				if (timer > 0) {
+					setTimer(timer - 1);
+				} else if (
+					timer === 0 &&
+					currentAction === "Session in Progress"
+				) {
+					audio.play();
+					setCurrentAction("Break in Progress");
+					setTimer(breakLength * 60);
+				} else if (
+					timer === 0 &&
+					currentAction === "Break in Progress"
+				) {
+					audio.play();
+					setCurrentAction("Session in Progress");
+					setTimer(sessionLength * 60);
+				}
+			}, 1000);
+		}
+
+		return () => {
+			clearInterval(interval);
+		};
+	}, [timer, currentAction]);
+
 	const resetApp = function () {
 		setBreakLength(5);
 		setSessionLength(25);
 		setTimer(1500);
 		setCurrentAction("Start Session");
+		audio.pause();
+		audio.currentTime = 0;
 	};
 
 	return (
-		<div className="flex h-96 w-80 flex-wrap items-center justify-center rounded-2xl border-2 border-emerald-900 bg-emerald-50 text-emerald-900">
+		<div className="flex h-96 w-80 flex-wrap items-center justify-center rounded-2xl border-2 border-emerald-900 bg-emerald-50 bg-gradient-to-br from-emerald-100 to-emerald-50 text-emerald-900 shadow-2xl">
 			<div id="timer-controls" className="w-full justify-center p-8">
 				<h1 id="timer-label" className="font-bold">
 					{currentAction}
 				</h1>
 				<div
 					id="time-left"
-					className="font-Digital w-32 bg-emerald-950 p-4 text-center text-3xl text-emerald-500"
+					className="w-32 bg-emerald-950 p-4 text-center font-Digital text-3xl text-emerald-500"
 				>
-					{Math.floor(timer / 60)}:
+					{Math.floor(timer / 60).toLocaleString(undefined, {
+						minimumIntegerDigits: 2,
+					})}
+					:
 					{(timer % 60).toLocaleString(undefined, {
 						minimumIntegerDigits: 2,
 					})}
+					<audio src={beep} id="beep" />
 				</div>
 				<button
 					id="reset"
