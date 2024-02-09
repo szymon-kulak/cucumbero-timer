@@ -30,10 +30,11 @@ Changing both the session and break lengths is done with a single function, `cha
 ```jsx
 const changeLength = function (whichLength, plusOrMinus) {
 	if (whichLength === "break") {
-	if (plusOrMinus === "+") {
-	if (breakLength <= 59) {
-		setBreakLength(breakLength + 1);
-	}
+		if (plusOrMinus === "+") {
+			if (breakLength <= 59) {
+				setBreakLength(breakLength + 1);
+			}
+/* etc. */
 }
 ```
 
