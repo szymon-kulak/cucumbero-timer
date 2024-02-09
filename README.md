@@ -10,7 +10,7 @@ Live App available [HERE](https://szymon-kulak.github.io/cucumbero-timer/)
 
 -   [React](https://react.dev/) for adding reactivity to the App
 -   [Vite](https://vitejs.dev/) for building the React App
--   [TailwindCSS](https://tailwindcss.com/) for implementing CSS inside JavaScript
+-   [Tailwind CSS](https://tailwindcss.com/) for implementing CSS inside JavaScript
 -   [React Icons](https://react-icons.github.io/react-icons/) for adding icons to the App
 -   [GitHub Pages](https://pages.github.com/) for hosting the live App
 
