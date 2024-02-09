@@ -186,7 +186,7 @@ useEffect(() => {
 }, [timer, currentAction]);
 ```
 
-However, this would cause the app to set a NEW interval each time either of these stateful variables are updated. We don't want that, so I made the effect clean up after itself by clearing the interval whenever it updates.
+However, this would cause the app to set ANOTHER interval each time either of these stateful variables are updated. We don't want that, so I made the effect clean up after itself by clearing the previous interval whenever it updates.
 
 ```jsx
 useEffect(() => {
