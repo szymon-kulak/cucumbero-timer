@@ -111,7 +111,7 @@ function Timer() {
 				</h1>
 				<div
 					id="time-left"
-					className="w-32 bg-emerald-950 p-4 text-center font-Digital text-3xl text-emerald-500"
+					className="w-32 rounded-xl bg-emerald-950 p-4 text-center font-Digital text-3xl text-emerald-500"
 				>
 					{Math.floor(timer / 60).toLocaleString(undefined, {
 						minimumIntegerDigits: 2,
